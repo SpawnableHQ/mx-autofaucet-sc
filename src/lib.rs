@@ -15,6 +15,13 @@ pub trait FaucetContract {
     #[endpoint(deposit)]
     fn deposit_endpoint(&self) {}
 
+    #[endpoint(fund)]
+    fn fund_endpoint(&self, address: ManagedAddress, amount: BigUint) {
+        self.require_caller_is_admin();
+
+        self.tx().to(address).egld(amount).transfer();
+    }
+
     #[endpoint(addAdmin)]
     fn add_admin_endpoint(&self, address: ManagedAddress) {
         self.require_caller_is_admin();
