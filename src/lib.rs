@@ -11,6 +11,10 @@ pub trait FaucetContract {
     #[upgrade]
     fn upgrade(&self) {}
 
+    #[payable("*")]
+    #[endpoint(deposit)]
+    fn deposit_endpoint(&self) {}
+
     #[endpoint(addAdmin)]
     fn add_admin_endpoint(&self, address: ManagedAddress) {
         self.require_caller_is_admin();
